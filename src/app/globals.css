@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* styles/globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --custom-height: calc(100vh - 60px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  background-color: #0C0D14;
+  color: #ffffff;
+  fill: #ffffff;
+  position: relative;
+  height: 100vh;
+}
+
+.header {
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+}
+
+.warper {
+  width: 100%;
+  display: flex;
+  padding-top: 3.75rem;
+}
+
+.navbarWrap {
+  position: relative;
+  width: 3.75rem;
+}
+
+.navbar {
+  width: 3.75rem;
+  position: absolute;
+  height: calc(100vh-3.75rem);
+  position: fixed;
+}
+
+.navbar:hover {
+  width: 12.5rem;
+  height: 100%;
+  z-index: 10;
+}
+
+.navbar:hover .navbarWrap {
+  z-index: 10;
+  width: 12.5rem;
+}
+
+.content {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* styles/globals.css */
+@font-face {
+  font-family: 'Nunito';
+  src: url('../../public/Nunito/Nunito-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('../../public/Nunito/static/Nunito-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('../../public/Nunito/Nunito-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('../../public/Nunito/static/Nunito-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+@layer base {
+  html {
+    font-family: "Nunito", system-ui, sans-serif;
+  }
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #AAADBE;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: transparent;
+}

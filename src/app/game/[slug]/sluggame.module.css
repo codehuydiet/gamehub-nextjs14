@@ -1,0 +1,69 @@
+#grid_item {
+    display: grid;
+    grid-template-columns: repeat(6, 11.125em);
+    grid-template-rows: repeat(9, 6.25em) repeat(3, auto) repeat(3, 6.25em);
+    grid-template-areas:
+        'game game game game game related1'
+        'game game game game game related2'
+        'game game game game game related3'
+        'game game game game game related4'
+        'game game game game game related5'
+        'like like like like like related11'
+        'related12 related13 related14 related15 related16 related17'
+        'related18 related19 related20 related21 related22 related23'
+        'related24 related25 related26 related27 related28 related29'
+        'info info info info info info'
+        'info info info info info info'
+        'info info info info info info'
+        'related related related related related related'
+        'related related related related related related'
+        'related related related related related related';
+    grid-gap: 0.5rem;
+}
+
+.grid_bot {
+    display: grid;
+    grid-area: "related";
+    grid-template-columns: repeat(6, 178px);
+    grid-template-rows: repeat(3, 100px);
+    grid-gap: 0.5rem;
+}
+
+#game {
+    grid-area: game;
+}
+
+.form {
+    width: 50px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.like {
+    grid-area: like;
+    display: flex;
+}
+
+.likeContainer {
+    width: 50px;
+    height: 30px;
+    display: flex;
+}
+
+.likeContainer:hover {
+    fill: #6842ff;
+    color: #6842ff;
+}
+
+.svgWarper {
+    padding-right: 10px;
+}
+
+.svg {
+    width: 30px;
+    height: 30px;
+}
+
+.svg:hover {}
+
+.number {}

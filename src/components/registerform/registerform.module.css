@@ -1,0 +1,8 @@
+.inputWrap {
+    width: 100%;
+    position: relative;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 0.875rem 0.75rem;
+    background-color: #28293d;
+}

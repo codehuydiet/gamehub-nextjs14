@@ -1,0 +1,28 @@
+.container {
+    flex: 1;
+    position: relative;
+    font-family: "Nunito";
+    height: auto;
+}
+
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem 0 1rem;
+    width: 100%;
+    height: auto;
+}
+
+.inputWrap {
+    width: 100%;
+    position: relative;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 0.875rem 0.75rem;
+    background-color: #28293d;
+}
+
+.border {
+    border-color: #6842ff;
+}

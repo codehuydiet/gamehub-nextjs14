@@ -1,0 +1,32 @@
+.container {
+    width: 12.5rem;
+    height: 2.125rem;
+}
+
+.item {
+    width: 12.5rem;
+    height: 2.125rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-left-width: 6px;
+    border-color: transparent;
+}
+
+.item:hover {
+    color: #c3c3c3;
+}
+
+.name {
+    width: auto;
+    transition: 0.2s ease-in-out;
+}
+
+.name:hover {
+    padding-left: 1rem;
+}
+
+.active {
+    border-left-style: solid;
+    border-left-color: #A48EFF;
+}
