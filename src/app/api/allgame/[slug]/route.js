@@ -3,14 +3,14 @@ import { connectToDb } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 export const GET = async (request, { params }) => {
-    // console.log(params);
+    console.log(params);
     let { slug } = params;
     slug = "/game/" + slug;
-    // console.log(slug);
+    console.log(slug);
     try {
         connectToDb();
         const tag = await games.findOne({ path: slug });
-        // console.log(tag);
+        console.log(tag);
         // console.log('asdasd');
         return NextResponse.json(tag);
     } catch (err) {

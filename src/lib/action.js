@@ -339,14 +339,18 @@ export const createCover = async (formData) => {
 
 export const getUser = async (email) => {
     // console.log(email);
-    try {
-        connectToDb();
-        const tag = await users.findOne({ email: email });
-        return tag;
-    } catch (err) {
-        console.log(err);
-        throw new Error("Failed to fetch user!");
+    if (email) {
+        try {
+            connectToDb();
+            const tag = await users.findOne({ email: email });
+            // console.log(tag.id);
+            return tag;
+        } catch (err) {
+            console.log(err);
+            throw new Error("Failed to fetch user!");
+        }
     }
+    return;
 };
 
 export const getAvatar = async (id) => {
@@ -354,7 +358,7 @@ export const getAvatar = async (id) => {
     try {
         connectToDb();
         const Avatar = await avatar.findById(id);
-        console.log(Avatar.img);
+        // console.log(Avatar.img);
         return Avatar.img;
     } catch (err) {
         console.log(err);
@@ -376,17 +380,17 @@ export const getCover = async (id) => {
 };
 
 export const recentPlayed = async (slug, idUser) => {
-    console.log(slug);
-    console.log(idUser);
+    // console.log(slug);
+    // console.log(idUser);
     if (idUser) {
         slug = "/game/" + slug;
-        console.log(slug);
+        // console.log(slug);
         try {
             connectToDb();
             const game = await games.findOne({ path: slug });
-            console.log(game.id);
+            // console.log(game.id);
             const user = await users.findById(idUser);
-            console.log(user.id);
+            // console.log(user.id);
             const update = {
                 $inc: { NPlayed: 1 },
             };
@@ -399,11 +403,275 @@ export const recentPlayed = async (slug, idUser) => {
                 update,
                 options
             );
-            console.log(updatedRecent);
+            // console.log(updatedRecent);
         } catch (err) {
             console.log(err);
             throw new Error("lỗi kết nối rồi bé ơi đây là trong api/tag/router");
         }
     }
     return;
+}
+
+export const gameLike = async (idU, idGame) => {
+    console.log(idGame);
+    console.log(idU);
+    const gameSlug = await games.findById(idGame);
+    if (idGame && idU) {
+        try {
+            connectToDb();
+            const Like = await like.findOne({ idUser: idU, idGame: idGame });
+            console.log(Like);
+            let update = {};
+            if (Like) {
+                if (Like.isDisLike === true && Like.isLike === false) {
+                    console.log(1);
+                    const updatedGameLike = await games.findOneAndUpdate(
+                        { _id: idGame },
+                        update = {
+                            $inc: { like: 1 },
+                        },
+                    );
+                    const updatedGameDisLike = await games.findOneAndUpdate(
+                        { _id: idGame },
+                        update = {
+                            $inc: { dislike: -1 },
+                        },
+                    );
+                    update = {
+                        isLike: true,
+                        isDisLike: false
+                    };
+                } else if (Like.isDisLike === true && Like.isLike === true) {
+                    console.log(1);
+                    const updatedGame = await games.findOneAndUpdate(
+                        { _id: idGame },
+                        update = {
+                            $inc: { dislike: -1 },
+                        },
+                    );
+                    update = {
+                        isDisLike: false,
+                    };
+                    return;
+                } else if (Like.isDisLike === false && Like.isLike === true) {
+                    console.log(1);
+                    const updatedGame = await games.findOneAndUpdate(
+                        { _id: idGame },
+                        update = {
+                            $inc: { like: -1 },
+                        },
+                    );
+                    update = {
+                        isLike: false,
+                    };
+                    console.log(1);
+                } else if (Like.isDisLike === false && Like.isLike === false) {
+                    console.log(1);
+                    const updatedGame = await games.findOneAndUpdate(
+                        { _id: idGame },
+                        update = {
+                            $inc: { like: 1 },
+                        },
+                    );
+                    update = {
+                        isLike: true,
+                    };
+                }
+            } else {
+                console.log(1);
+                const updatedGame = await games.findOneAndUpdate(
+                    { _id: idGame },
+                    update = {
+                        $inc: { like: 1 },
+                    },
+                );
+                update = {
+                    isLike: true,
+                };
+            }
+            const options = {
+                new: true,
+                upsert: true,
+            };
+            console.log(1);
+            const updatedLike = await like.findOneAndUpdate(
+                { idUser: idU, idGame: idGame },
+                update,
+                options,
+            );
+            console.log(gameSlug.path);
+            revalidatePath(gameSlug.path);
+        } catch (err) {
+            console.log(err);
+            throw new Error("Failed to fetch user!");
+        }
+    }
+}
+
+export const gameDisLike = async (idU, idGame) => {
+    console.log(idGame);
+    console.log(idU);
+    const gameSlug = await games.findById(idGame);
+    if (idGame && idU) {
+        try {
+            connectToDb();
+            const Like = await like.findOne({ idUser: idU, idGame: idGame });
+            console.log(Like);
+            let update = {};
+            if (Like) {
+                if (Like.isDisLike === false && Like.isLike === true) {
+                    console.log(1);
+                    const updatedGameLike = await games.findOneAndUpdate(
+                        { _id: idGame },
+                        update = {
+                            $inc: { like: -1 }
+                        },
+                    );
+                    const updatedGameDisLike = await games.findOneAndUpdate(
+                        { _id: idGame },
+                        update = {
+                            $inc: { dislike: 1 },
+                        },
+                    );
+                    update = {
+                        isLike: false,
+                        isDisLike: true
+                    };
+                } else if (Like.isDisLike === true && Like.isLike === true) {
+                    console.log(1);
+                    const updatedGame = await games.findOneAndUpdate(
+                        { _id: idGame },
+                        update = {
+                            $inc: { like: -1 },
+                        },
+                    );
+                    update = {
+                        isLike: false,
+                    };
+                } else if (Like.isDisLike === true && Like.isLike === false) {
+                    console.log(1);
+                    const updatedGame = await games.findOneAndUpdate(
+                        { _id: idGame },
+                        update = {
+                            $inc: { dislike: -1 },
+                        },
+                    );
+                    update = {
+                        isDisLike: false,
+                    };
+                } else if (Like.isDisLike === false && Like.isLike === false) {
+                    console.log(1);
+                    const updatedGame = await games.findOneAndUpdate(
+                        { _id: idGame },
+                        update = {
+                            $inc: { dislike: 1 },
+                        },
+                    );
+                    update = {
+                        isDisLike: true,
+                    };
+                }
+            } else {
+                console.log(1);
+                const updatedGame = await games.findOneAndUpdate(
+                    { _id: idGame },
+                    update = {
+                        $inc: { like: 1 },
+                    },
+                );
+                update = {
+                    isLike: true,
+                };
+            }
+            const options = {
+                new: true,
+                upsert: true,
+            };
+            console.log(1);
+            console.log(update);
+            const updatedLike = await like.findOneAndUpdate(
+                { idUser: idU, idGame: idGame },
+                update,
+                options,
+            );
+            console.log(gameSlug.path);
+            revalidatePath(gameSlug.path);
+        } catch (err) {
+            console.log(err);
+            throw new Error("Failed to fetch user!");
+        }
+    }
+}
+
+export const gameFavorite = async (idU, idGame) => {
+    console.log(idGame);
+    console.log(idU);
+    const gameSlug = await games.findById(idGame);
+    if (idGame && idU) {
+        try {
+            connectToDb();
+            const Like = await like.findOne({ idUser: idU, idGame: idGame });
+            console.log(Like);
+            let update = {};
+            if (Like) {
+                if (Like.isDisLike === true) {
+                    console.log(1);
+                    const updatedGameLike = await games.findOneAndUpdate(
+                        { _id: idGame },
+                        update = {
+                            $inc: { like: -1 }
+                        },
+                    );
+                    const updatedGameDisLike = await games.findOneAndUpdate(
+                        { _id: idGame },
+                        update = {
+                            $inc: { dislike: 1 },
+                        },
+                    );
+                    update = {
+                        isLike: false,
+                        isDisLike: true
+                    };
+                } else {
+                    console.log(1);
+                    const updatedGame = await games.findOneAndUpdate(
+                        { _id: idGame },
+                        update = {
+                            $inc: { like: -1 },
+                        },
+                    );
+                    update = {
+                        isLike: false,
+                    };
+                }
+            } else {
+                console.log(1);
+                const updatedGame = await games.findOneAndUpdate(
+                    { _id: idGame },
+                    update = {
+                        $inc: { like: 1 },
+                    },
+                );
+                update = {
+                    isLike: true,
+                };
+            }
+            const options = {
+                new: true,
+                upsert: true,
+            };
+            console.log(1);
+            console.log(update);
+            const updatedLike = await like.findOneAndUpdate(
+                { idUser: idU, idGame: idGame },
+                update,
+                options,
+            );
+            console.log(gameSlug.path);
+            revalidatePath(gameSlug.path);
+        } catch (err) {
+            console.log(err);
+            throw new Error("Failed to fetch user!");
+        }
+    }
 }

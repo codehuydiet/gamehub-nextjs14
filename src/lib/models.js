@@ -112,11 +112,23 @@ const coverSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 const likeSchema = new mongoose.Schema({
+    idUser: {
+        type: String,
+    },
     idGame: {
         type: String,
     },
-    NPlayed: {
-        type: Number,
+    isLike: {
+        type: Boolean,
+        default: false,
+    },
+    isDisLike: {
+        type: Boolean,
+        default: false,
+    },
+    isFavorite: {
+        type: Boolean,
+        default: false,
     }
 }, { timestamps: true });
 const recentSchema = new mongoose.Schema({

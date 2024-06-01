@@ -3,11 +3,11 @@ import { connectToDb } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 const getId = async (params) => {
-    console.log(params);
+    // console.log(params);
     try {
         connectToDb();
         const tag = await tags.findOne({ path: params });
-        console.log(tag.id)
+        // console.log(tag.id)
         if (!tag) throw new Error('Không tìm thấy Tag');
         return tag.id;
     } catch (err) {
@@ -20,11 +20,11 @@ const getGames = async (params) => {
     // console.log(params);
     try {
         const id = await getId(params);
-        console.log(id);
+        // console.log(id);
 
         connectToDb();
         const tagData = await gametag.find({ idTag: id });
-        console.log(tagData);
+        // console.log(tagData);
         let data = [];
         for (let i = 0; i < tagData.length; i++) {
             data[i] = tagData[i];

@@ -1,0 +1,34 @@
+.form {
+    width: 50px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.like {
+    grid-area: like;
+    display: flex;
+}
+
+.likeContainer {
+    width: 50px;
+    height: 30px;
+    display: flex;
+}
+
+.likeContainer:hover {
+    fill: #6842ff;
+    color: #6842ff;
+}
+
+.svgWarper {
+    padding-right: 10px;
+}
+
+.svg {
+    width: 30px;
+    height: 30px;
+}
+
+.svg:hover {}
+
+.number {}

@@ -13,9 +13,9 @@ const getData = async (slug) => {
 }
 
 const ItemGame = async ({ slug }) => {
-    console.log(slug);
+    // console.log(slug);
     const data = await getData(slug);
-    console.log(data);
+    // console.log(data);
     return (
         < ul className={style.container} >
             {data.slice(0, 50).map((data) => (

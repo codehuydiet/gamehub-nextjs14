@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export const GET = async (request, { params }) => {
     let { slug } = params;
     slug = "/tag/" + slug;
-    console.log(slug);
+    // console.log(slug);
     try {
         connectToDb();
         const tag = await tags.findOne({ path: slug });
