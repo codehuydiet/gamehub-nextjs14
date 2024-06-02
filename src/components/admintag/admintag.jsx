@@ -2,7 +2,7 @@ import { createTag, createUser, deleteTag } from '@/lib/action';
 import style from './admintag.module.css'
 
 const getData = async () => {
-    const data = await fetch("http://localhost:3000/api/tag", { cache: 'no-store' })
+    const data = await fetch(`${process.env.DOMAIN}/api/tag`, { cache: 'no-store' })
     if (!data.ok) {
         throw new Error("Somthing went wrong");
     }

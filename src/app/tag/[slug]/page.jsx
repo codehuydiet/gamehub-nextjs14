@@ -3,7 +3,7 @@ import ItemGame from '@/components/itemgame/itemGame';
 
 const getTitle = async (slug) => {
     // console.log(slug);
-    const res = await fetch(`http://localhost:3000/api/eachtag/${slug}`, { cache: 'no-store' });
+    const res = await fetch(`${process.env.DOMAIN}/api/eachtag/${slug}`, { cache: 'no-store' });
     // console.log(res);
     if (!res.ok) {
         throw new Error("Somthing went wrong");

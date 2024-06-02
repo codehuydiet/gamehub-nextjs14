@@ -5,7 +5,7 @@ import LikeComponent from '@/components/likecomponent/likecomponent';
 
 const getData = async (slug) => {
     console.log(slug);
-    const res = await fetch(`http://localhost:3000/api/allgame/${slug}`, { cache: 'no-store' });
+    const res = await fetch(`${process.env.DOMAIN}/api/allgame/${slug}`, { cache: 'no-store' });
     console.log(res);
     if (!res.ok) {
         throw new Error("Somthing went wrong");

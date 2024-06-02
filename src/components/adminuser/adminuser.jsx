@@ -3,7 +3,7 @@ import style from './adminuser.module.css'
 import { createUser, deleteUser } from '@/lib/action';
 
 const getData = async () => {
-    const data = await fetch("http://localhost:3000/api/users", { cache: 'no-store' })
+    const data = await fetch(`${process.env.DOMAIN}/api/users`, { cache: 'no-store' })
     if (!data.ok) {
         throw new Error("Somthing went wrong");
     }

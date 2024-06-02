@@ -2,7 +2,7 @@ import { createGame, deleteGame } from '@/lib/action';
 import style from './admingame.module.css'
 
 const getData = async () => {
-    const data = await fetch("http://localhost:3000/api/allgame", { cache: 'no-store' })
+    const data = await fetch(`${process.env.DOMAIN}/api/allgame`, { cache: 'no-store' })
     if (!data.ok) {
         throw new Error("Somthing went wrong");
     }

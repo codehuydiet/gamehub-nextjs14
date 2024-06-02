@@ -4,7 +4,7 @@ import { deleteAvatar, deleteCover } from '@/lib/action';
 import Form from './form/form';
 
 const getData = async () => {
-    const data = await fetch("http://localhost:3000/api/covers", { cache: 'no-store' })
+    const data = await fetch(`${process.env.DOMAIN}/api/covers`, { cache: 'no-store' })
     if (!data.ok) {
         throw new Error("Somthing went wrong");
     }
